@@ -41,14 +41,4 @@ public class HandlerExceptionController {
         return error;
     }
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Map<String, Object> handleIllegalArgumentException(IllegalArgumentException ex) {
-        Map<String, Object> error = new HashMap<>();
-        error.put("date", new Date());
-        error.put("error", "Solicitud incorrecta");
-        error.put("message", ex.getMessage());
-        error.put("status", HttpStatus.BAD_REQUEST.value());
-        return error;
-    }
 }
