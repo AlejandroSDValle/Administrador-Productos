@@ -15,6 +15,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -39,16 +40,19 @@ public class ProductController {
     ProductValidation validation;
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     public ResponseEntity<Iterable<Product>> listarProductos() {
         return new ResponseEntity<>(productService.listarProductos(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> obtenerProducto(@PathVariable Long id) {
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
+    public ResponseEntity<Product> getProducto(@PathVariable Long id) {
         return ResponseEntity.ok(productService.obtenerProducto(id));
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> crearProducto(@Valid @RequestBody Product producto, BindingResult result) {
         validation.validate(producto, result);
         if(result.hasFieldErrors()){
@@ -58,6 +62,7 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> actualizarProducto(@Valid @RequestBody Product producto, BindingResult result, @PathVariable Long id) {
         validation.validate(producto, result);
         if(result.hasFieldErrors()){
@@ -67,12 +72,14 @@ public class ProductController {
     }
 
     @PatchMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> actualizarAvailability(@PathVariable Long id) {
         productService.actualizarAvailability(id);
         return new ResponseEntity<>("Disponibilidad actualizada correctamente", HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> eliminarProducto(@PathVariable Long id) {
         productService.eliminarProducto(id);
         return new ResponseEntity<>(HttpStatus.OK);
