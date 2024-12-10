@@ -28,9 +28,7 @@ public class HandlerExceptionController {
         return ResponseEntity.status(404).body(error);
     }
 
-    @ExceptionHandler({NullPointerException.class,
-                        HttpMessageNotWritableException.class,
-                        ProductNotFoundException.class})
+    @ExceptionHandler({ProductNotFoundException.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Map<String, Object> productNotFoundException(Exception ex){
         Map<String, Object> error = new HashMap<>();

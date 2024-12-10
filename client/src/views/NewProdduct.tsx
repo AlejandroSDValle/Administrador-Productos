@@ -17,7 +17,7 @@ export async function action({request} : ActionFunctionArgs) {
   await addProduct(data);
 
 
-  return redirect('/')
+  return redirect('/productos')
 }
 
 export default function NewProdduct() {
@@ -28,7 +28,7 @@ export default function NewProdduct() {
       <div className="flex justify-between">
         <h2 className="text-4xl font-black text-slate-500">Registrar Producto</h2>
         <Link
-          to={"/"}
+          to={"/productos"}
           className="rounded-md bg-indigo-600 p-3 text-sm font-bold text-white shadow-sm hover:bg-indigo-500"
         >
           Volver a Productos

@@ -10,7 +10,7 @@ type ProductDetailsProps = {
 export async function action({ params }: ActionFunctionArgs) {
     if(params.id != undefined){
         await deleteProduct(+params.id)
-        return redirect('/')
+        return redirect('/productos')
     }
 
 }
@@ -50,7 +50,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                         <Form
                             className="w-full"
                             method="POST"
-                            action={`productos/${product.id}/eliminar`}
+                            action={`/${product.id}/eliminar`}
                             onSubmit={ (e) =>{
                                 if( !confirm('Eliminar?')){
                                     e.preventDefault();

@@ -32,8 +32,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
     @ExistsByUsername
+    @NotBlank
     @Column(unique = true)
     @Size(min = 4, max = 20)
     private String username;

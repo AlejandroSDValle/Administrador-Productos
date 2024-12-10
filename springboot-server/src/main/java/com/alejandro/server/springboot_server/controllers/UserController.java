@@ -42,7 +42,7 @@ public class UserController {
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> create(@Valid @RequestParam  User user, BindingResult result ) {
+    public ResponseEntity<?> create(@Valid @RequestBody User user, BindingResult result) {
         if(result.hasFieldErrors()){
             return validation(result);
         }
